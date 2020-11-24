@@ -1,0 +1,16 @@
+
+
+GET https://warehouse-tubeseai.herokuapp.com/barang
+
+
+###
+
+POST https://warehouse-tubeseai.herokuapp.com/barang
+Content-Type: application/json
+
+{
+  "id":"CBA01",
+  "name":"coba aja",
+  "stock":20,
+  "gudang":"GDG02"
+}

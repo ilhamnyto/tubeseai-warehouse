@@ -10,7 +10,6 @@ barangRouter
         return console.error("error running query", err);
       }
       res.json(result.rows);
-      db.end();
     });
   })
   .post((req, res) => {
@@ -34,6 +33,27 @@ barangRouter
       }
       res.json({ message: "all barang are deleted sucessfully." });
     });
+  });
+
+barangRouter
+  .route("/restock")
+  .get((req, res) => {
+    console.log(",masuk");
+    db.query(`SELECT * from barang WHERE stock < 100`, function (err, result) {
+      if (err) {
+        return console.error("error running query", err);
+      }
+      res.json(result.rows);
+    });
+  })
+  .post((req, res) => {
+    res.status(405).json({ message: "POST method is not allowed." });
+  })
+  .put((req, res) => {
+    res.status(405).json({ message: "PUT method is not allowed." });
+  })
+  .delete((req, res) => {
+    res.status(405).json({ message: "DELETE method is not allowed." });
   });
 
 barangRouter
@@ -67,27 +87,6 @@ barangRouter
         });
       }
     );
-  });
-
-barangRouter
-  .route("/restock")
-  .get((req, res) => {
-    db.query("SELECT * from barang WHERE stock < 100", function (err, result) {
-      if (err) {
-        return console.error("error running query", err);
-      }
-      res.json(result.rows);
-      db.end();
-    });
-  })
-  .post((req, res) => {
-    res.status(405).json({ message: "POST method is not allowed." });
-  })
-  .put((req, res) => {
-    res.status(405).json({ message: "PUT method is not allowed." });
-  })
-  .delete((req, res) => {
-    res.status(405).json({ message: "DELETE method is not allowed." });
   });
 
 module.exports = barangRouter;
