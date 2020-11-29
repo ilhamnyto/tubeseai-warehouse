@@ -7,7 +7,8 @@ barangRouter
   .get((req, res) => {
     db.query("SELECT * from barang", function (err, result) {
       if (err) {
-        return console.error("error running query", err);
+        console.error("error running query", err);
+        res.status(500).json({ message: "An error occured." });
       }
       res.json(result.rows);
     });
@@ -18,6 +19,9 @@ barangRouter
       (err, result) => {
         if (err) {
           console.error("Theres some error. ", err);
+          res
+            .status(500)
+            .json({ message: "Data yang dimasukkan tidak sesuai." });
         }
         res.json({ message: "barang inserted sucessfully." });
       }
@@ -27,21 +31,16 @@ barangRouter
     res.status(405).json({ message: "PUT method is not allowed." });
   })
   .delete((req, res) => {
-    db.query("TRUNCATE barang", (err, result) => {
-      if (err) {
-        console.error("There is some error", err);
-      }
-      res.json({ message: "all barang are deleted sucessfully." });
-    });
+    res.status(405).json({ message: "DELETE method is not allowed." });
   });
 
 barangRouter
   .route("/restock")
   .get((req, res) => {
-    console.log(",masuk");
     db.query(`SELECT * from barang WHERE stock < 100`, function (err, result) {
       if (err) {
         return console.error("error running query", err);
+        res.status(500).json({ message: "An error occured." });
       }
       res.json(result.rows);
     });
@@ -64,6 +63,7 @@ barangRouter
       (err, result) => {
         if (err) {
           console.error("There are some error", err);
+          res.status(500).json({ message: "An error occured." });
         }
         res.json(result.rows);
       }
@@ -73,7 +73,19 @@ barangRouter
     res.status(405).json({ message: "POST method is not allowed." });
   })
   .put((req, res) => {
-    res.json({ message: "under construction" });
+    db.query(
+      `UPDATE barang SET name = '${req.body.name}', stock = ${req.body.stock}, gudang = '${req.body.gudang}' WHERE id = '${req.params.idBarang}'`,
+      (err, result) => {
+        if (err) {
+          console.error("There are some error", err);
+
+          res
+            .status(500)
+            .json({ message: "Data yang dimasukkan tidak sesuai" });
+        }
+        res.json({ message: "barang updated successfully." });
+      }
+    );
   })
   .delete((req, res) => {
     db.query(
@@ -81,6 +93,9 @@ barangRouter
       (err, result) => {
         if (err) {
           console.log(`There are some error`, err);
+          res
+            .status(500)
+            .json({ message: "Data yang dimasukkan tidak sesuai." });
         }
         res.json({
           message: `barang with id: ${req.params.idBarang} has been deleted sucessfully.`,

@@ -10,11 +10,13 @@ const barangRouter = require("./routes/barang");
 const historyMasukRouter = require("./routes/historyMasuk");
 const historyKeluarRouter = require("./routes/historyKeluar");
 const gudangRouter = require("./routes/gudang");
+const indexRouter = require("./routes/index");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 
+app.use("/", indexRouter);
 app.use("/barang", barangRouter);
 app.use("/history_masuk", historyMasukRouter);
 app.use("/history_keluar", historyKeluarRouter);

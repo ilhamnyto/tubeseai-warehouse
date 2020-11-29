@@ -1,16 +1,34 @@
 
+######################## BARANG
+GET http://localhost:3442/history_keluar
 
-GET https://warehouse-tubeseai.herokuapp.com/barang
+####
 
-
-###
-
-POST https://warehouse-tubeseai.herokuapp.com/barang
+POST http://localhost:3442/history_keluar
 Content-Type: application/json
 
-{
-  "id":"CBA01",
-  "name":"coba aja",
-  "stock":20,
-  "gudang":"GDG02"
-}
+  {
+    "id": "PROD0O213",
+    "id_barang": "RDTOR",
+    "jumlah": 444,
+    "destination": "PROD02",
+    "date": "2020-11-29",
+    "gudang": "GDG01"
+  }
+
+####
+GET http://localhost:3442/history_keluar/PROD0O213
+
+####
+PUT http://localhost:3442/history_keluar/PROD0O213
+Content-Type: application/json
+
+  {
+    "id_barang": "RDTOR",
+    "jumlah": 555,
+    "destination": "PROD02",
+    "date": "2020-11-25",
+    "gudang": "GDG03"
+  }
+
+###
