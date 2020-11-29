@@ -83,7 +83,7 @@ gudangRouter
             .json({ message: "Data yang dimasukkan tidak sesuai." });
         }
         res.json({
-          message: `gudang with id: ${req.params.idBarang} has been deleted sucessfully.`,
+          message: `gudang with id: ${req.params.idGudang} has been deleted sucessfully.`,
         });
       }
     );
