@@ -1,17 +1,17 @@
 
 ######################## BARANG
-GET http://localhost:3442/history_keluar
+GET http://localhost:3442/history_masuk
 
 ####
 
-POST http://localhost:3442/history_keluar
+POST http://localhost:3442/history_masuk
 Content-Type: application/json
 
   {
-    "id": "PROD0O213dsds",
+    "id": "PROD0O213",
     "id_barang": "RDTOR",
     "jumlah": 444,
-    "destination": "PROD02",
+    "vendor": "VNDR2",
     "date": "2020-11-29",
     "gudang": "GDG01"
   }

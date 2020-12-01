@@ -4,7 +4,7 @@ const historyKeluarRouter = express.Router();
 
 historyKeluarRouter
   .route("/")
-  .get((req, res) => {
+  .get((req, res, next) => {
     db.query("SELECT * FROM history_keluar", (err, result) => {
       if (err) {
         const error = new Error(err);
@@ -27,16 +27,16 @@ historyKeluarRouter
       }
     );
   })
-  .put((req, res) => {
+  .put((req, res, next) => {
     res.status(405).json({ message: "PUT method is not allowed." });
   })
-  .delete((req, res) => {
+  .delete((req, res, next) => {
     res.status(405).json({ message: "DELETE method is not allowed." });
   });
 
 historyKeluarRouter
   .route("/:idHistory")
-  .get((req, res) => {
+  .get((req, res, next) => {
     db.query(
       `SELECT * FROM history_keluar WHERE id = '${req.params.idHistory}'`,
       (err, result) => {
@@ -49,10 +49,10 @@ historyKeluarRouter
       }
     );
   })
-  .post((req, res) => {
+  .post((req, res, next) => {
     res.status(405).json({ message: "POST method is not allowed." });
   })
-  .put((req, res) => {
+  .put((req, res, next) => {
     db.query(
       `UPDATE history_keluar SET id_barang = '${req.body.id_barang}', jumlah = '${req.body.jumlah}', destination = '${req.body.destination}', date = '${req.body.date}', gudang = '${req.body.gudang}' WHERE id = '${req.params.idHistory}'`,
       (err, result) => {
@@ -65,7 +65,7 @@ historyKeluarRouter
       }
     );
   })
-  .delete((req, res) => {
+  .delete((req, res, next) => {
     res.status(405).json({ message: "DELETE method is not allowed." });
   });
 
