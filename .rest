@@ -8,7 +8,7 @@ POST http://localhost:3442/history_keluar
 Content-Type: application/json
 
   {
-    "id": "PROD0O213",
+    "id": "PROD0O213dsds",
     "id_barang": "RDTOR",
     "jumlah": 444,
     "destination": "PROD02",
@@ -20,7 +20,7 @@ Content-Type: application/json
 GET http://localhost:3442/history_keluar/PROD0O213
 
 ####
-PUT http://localhost:3442/history_keluar/PROD0O213
+DELETE http://localhost:3442/history_keluar/PROD0O213
 Content-Type: application/json
 
   {

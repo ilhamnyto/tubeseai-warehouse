@@ -7,10 +7,11 @@ barangRouter
   .get((req, res) => {
     db.query("SELECT * from barang", function (err, result) {
       if (err) {
-        console.error("error running query", err);
-        res.status(500).json({ message: "An error occured." });
+        const error = new Error(err);
+        next(error);
+      } else {
+        res.json(result.rows);
       }
-      res.json(result.rows);
     });
   })
   .post((req, res) => {
@@ -18,12 +19,11 @@ barangRouter
       `INSERT INTO barang (id, name, stock, gudang) VALUES ('${req.body.id}','${req.body.name}','${req.body.stock}','${req.body.gudang}')`,
       (err, result) => {
         if (err) {
-          console.error("Theres some error. ", err);
-          res
-            .status(500)
-            .json({ message: "Data yang dimasukkan tidak sesuai." });
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json({ message: "barang inserted sucessfully." });
         }
-        res.json({ message: "barang inserted sucessfully." });
       }
     );
   })
@@ -39,10 +39,11 @@ barangRouter
   .get((req, res) => {
     db.query(`SELECT * from barang WHERE stock < 100`, function (err, result) {
       if (err) {
-        return console.error("error running query", err);
-        res.status(500).json({ message: "An error occured." });
+        const error = new Error(err);
+        next(error);
+      } else {
+        res.json(result.rows);
       }
-      res.json(result.rows);
     });
   })
   .post((req, res) => {
@@ -62,10 +63,11 @@ barangRouter
       `SELECT * FROM barang WHERE id = '${req.params.idBarang}'`,
       (err, result) => {
         if (err) {
-          console.error("There are some error", err);
-          res.status(500).json({ message: "An error occured." });
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json(result.rows);
         }
-        res.json(result.rows);
       }
     );
   })
@@ -77,13 +79,11 @@ barangRouter
       `UPDATE barang SET name = '${req.body.name}', stock = ${req.body.stock}, gudang = '${req.body.gudang}' WHERE id = '${req.params.idBarang}'`,
       (err, result) => {
         if (err) {
-          console.error("There are some error", err);
-
-          res
-            .status(500)
-            .json({ message: "Data yang dimasukkan tidak sesuai" });
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json({ message: "barang updated successfully." });
         }
-        res.json({ message: "barang updated successfully." });
       }
     );
   })
@@ -92,14 +92,13 @@ barangRouter
       `DELETE FROM barang WHERE id = '${req.params.idBarang}'`,
       (err, result) => {
         if (err) {
-          console.log(`There are some error`, err);
-          res
-            .status(500)
-            .json({ message: "Data yang dimasukkan tidak sesuai." });
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json({
+            message: `barang with id: ${req.params.idBarang} has been deleted sucessfully.`,
+          });
         }
-        res.json({
-          message: `barang with id: ${req.params.idBarang} has been deleted sucessfully.`,
-        });
       }
     );
   });

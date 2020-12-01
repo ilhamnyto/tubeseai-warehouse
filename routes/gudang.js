@@ -7,10 +7,11 @@ gudangRouter
   .get((req, res) => {
     db.query(`SELECT * FROM gudang`, (err, result) => {
       if (err) {
-        console.error("There are some error.", err);
-        res.status(500).json({ message: "An error occured." });
+        const error = new Error(err);
+        next(error);
+      } else {
+        res.json(result.rows);
       }
-      res.json(result.rows);
     });
   })
   .post((req, res) => {
@@ -18,12 +19,11 @@ gudangRouter
       `INSERT INTO gudang (id, name, location, supervisor, capacity, biaya_sewa, biaya_perawatan) VALUES ('${req.body.id}','${req.body.name}','${req.body.location}','${req.body.supervisor}', '${req.body.capacity}', '${req.body.biaya_sewa}', '${req.body.biaya_perawatan}')`,
       (err, result) => {
         if (err) {
-          console.error("Theres some error. ", err);
-          res
-            .status(500)
-            .json({ message: "Data yang dimasukkan tidak sesuai." });
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json({ message: "gudang inserted sucessfully." });
         }
-        res.json({ message: "gudang inserted sucessfully." });
       }
     );
   })
@@ -33,10 +33,11 @@ gudangRouter
   .delete((req, res) => {
     db.query("TRUNCATE gudang", (err, result) => {
       if (err) {
-        console.error("There is some error", err);
-        res.status(500).json({ message: "An error occured." });
+        const error = new Error(err);
+        next(error);
+      } else {
+        res.json({ message: "all gudang are deleted sucessfully." });
       }
-      res.json({ message: "all gudang are deleted sucessfully." });
     });
   });
 
@@ -47,10 +48,11 @@ gudangRouter
       `SELECT * FROM gudang WHERE id = '${req.params.idGudang}'`,
       (err, result) => {
         if (err) {
-          console.error("There are some error.", err);
-          res.status(500).json({ message: "An error occured." });
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json(result.rows);
         }
-        res.json(result.rows);
       }
     );
   })
@@ -62,13 +64,11 @@ gudangRouter
       `UPDATE gudang SET name = '${req.body.name}', location = '${req.body.location}', supervisor = '${req.body.supervisor}', capacity = '${req.body.capacity}', biaya_sewa = '${req.body.biaya_sewa}', biaya_perawatan = '${req.body.biaya_perawatan}' WHERE id = '${req.params.idGudang}'`,
       (err, result) => {
         if (err) {
-          console.error("There are some error", err);
-
-          res
-            .status(500)
-            .json({ message: "Data yang dimasukkan tidak sesuai" });
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json({ message: "Gudang updated successfully" });
         }
-        res.json({ message: "Gudang updated successfully" });
       }
     );
   })
@@ -77,14 +77,13 @@ gudangRouter
       `DELETE FROM gudang WHERE id = '${req.params.idGudang}'`,
       (err, result) => {
         if (err) {
-          console.log(`There are some error`, err);
-          res
-            .status(500)
-            .json({ message: "Data yang dimasukkan tidak sesuai." });
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json({
+            message: `gudang with id: ${req.params.idGudang} has been deleted sucessfully.`,
+          });
         }
-        res.json({
-          message: `gudang with id: ${req.params.idGudang} has been deleted sucessfully.`,
-        });
       }
     );
   });

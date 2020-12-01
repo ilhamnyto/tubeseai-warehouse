@@ -7,22 +7,23 @@ historyKeluarRouter
   .get((req, res) => {
     db.query("SELECT * FROM history_keluar", (err, result) => {
       if (err) {
-        console.error("There are some error.", err);
+        const error = new Error(err);
+        next(error);
+      } else {
+        res.json(result.rows);
       }
-      res.json(result.rows);
     });
   })
-  .post((req, res) => {
+  .post((req, res, next) => {
     db.query(
       `INSERT INTO history_keluar (id, id_barang, jumlah, destination, date, gudang) VALUES ('${req.body.id}','${req.body.id_barang}','${req.body.jumlah}','${req.body.destination}', '${req.body.date}', '${req.body.gudang}')`,
       (err, result) => {
         if (err) {
-          console.error("Theres some error. ", err);
-          res
-            .status(500)
-            .json({ message: "Data yang dimasukkan tidak sesuai." });
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json({ message: "history_keluar inserted sucessfully." });
         }
-        res.json({ message: "history_keluar inserted sucessfully." });
       }
     );
   })
@@ -40,9 +41,11 @@ historyKeluarRouter
       `SELECT * FROM history_keluar WHERE id = '${req.params.idHistory}'`,
       (err, result) => {
         if (err) {
-          console.error("There are some error.", err);
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json(result.rows);
         }
-        res.json(result.rows);
       }
     );
   })
@@ -54,12 +57,11 @@ historyKeluarRouter
       `UPDATE history_keluar SET id_barang = '${req.body.id_barang}', jumlah = '${req.body.jumlah}', destination = '${req.body.destination}', date = '${req.body.date}', gudang = '${req.body.gudang}' WHERE id = '${req.params.idHistory}'`,
       (err, result) => {
         if (err) {
-          console.error("Theres some error. ", err);
-          res
-            .status(500)
-            .json({ message: "Data yang dimasukkan tidak sesuai." });
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json({ message: "history keluar updated successfully." });
         }
-        res.json({ message: "history keluar updated successfully." });
       }
     );
   })
