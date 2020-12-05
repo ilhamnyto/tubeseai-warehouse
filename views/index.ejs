@@ -4,8 +4,51 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+      body {
+        font-family: "Poppins";
+      }
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .center-box {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .link {
+        font-weight: 400;
+        font-size: 1.5rem;
+      }
+
+      a {
+        color: #000;
+        text-decoration: none;
+        margin: 0 1rem;
+      }
+
+      a:hover {
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.7rem;
+        transition: all 0.2s ease-in-out;
+      }
+    </style>
   </head>
   <body>
-    <h1>Warehouse</h1>
+    <h1>
+      <div class="center-box">
+        <div class="link">
+          <a href="/app/home">Go to App</a> |
+          <a href="https://warehousetubeseai.docs.apiary.io/">Go to API Docs</a>
+        </div>
+      </div>
+    </h1>
   </body>
 </html>
