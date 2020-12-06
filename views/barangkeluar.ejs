@@ -26,7 +26,57 @@
           </a>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Barang</th>
+                  <th>Jumlah</th>
+                  <th>Destination</th>
+                  <th>Date</th>
+                  <th>Gudang</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="tab-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
+
+    <script>
+      console.log("mantap");
+      fetch("/history_keluar")
+        .then((res) => res.json())
+        .then((res) => {
+          res.forEach((el) => {
+            document.querySelector(".tab-body").innerHTML += `
+                <tr class="tab-row">
+                  <td>${el.id}</td>
+                  <td>${el.id_barang}</td>
+                  <td class="loc">
+                    ${el.jumlah}
+                  </td>
+                  <td>${el.destination}</td>
+                  <td>${el.date}</td>
+                  <td>${el.gudang}</td>
+                  <td>
+                
+                    <a href="/editgudang" class="edit-btn">
+                      <img src="/edit.png" alt="edit" />
+                    </a>
+                    <button id="del-btn">
+                      <img src="/delete.png" alt="delete" />
+                    </button>
+                    </td>
+                </tr>
+            `;
+          });
+        });
+    </script>
   </body>
 </html>

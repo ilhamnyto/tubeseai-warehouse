@@ -26,7 +26,53 @@
           </a>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Stock</th>
+                  <th>Gudang</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="tab-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
+
+    <script>
+      console.log("mantap");
+      fetch("/barang")
+        .then((res) => res.json())
+        .then((res) => {
+          res.forEach((el) => {
+            document.querySelector(".tab-body").innerHTML += `
+                <tr class="tab-row">
+                  <td>${el.id}</td>
+                  <td>${el.name}</td>
+                  <td class="loc">
+                    ${el.stock}
+                  </td>
+                  <td>${el.gudang}</td>
+                  <td>
+                
+                    <a href="/editbarang" class="edit-btn">
+                      <img src="/edit.png" alt="edit" />
+                    </a>
+                    <button id="del-btn">
+                      <img src="/delete.png" alt="delete" />
+                    </button>
+                    </td>
+                </tr>
+            `;
+          });
+        });
+    </script>
   </body>
 </html>

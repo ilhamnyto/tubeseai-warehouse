@@ -21,18 +21,67 @@
       </div>
       <div class="row mt-5">
         <div class="col px-5 d-flex justify-content-end">
-          <a href="/tambahgudang" class="d-flex align-items-center add-btn">
+          <a
+            href="/tambahgudang"
+            class="d-flex align-items-center add-btn mr-5"
+          >
             Add gudang
           </a>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Location</th>
+                  <th>Supervisor</th>
+                  <th>Capacity</th>
+                  <th>Biaya Sewa</th>
+                  <th>Biaya Perawatan</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="tab-body"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
 
-    <script></script>
+    <script>
+      console.log("mantap");
+      fetch("/gudang")
+        .then((res) => res.json())
+        .then((res) => {
+          res.forEach((el) => {
+            document.querySelector(".tab-body").innerHTML += `
+                <tr class="tab-row">
+                  <td>${el.id}</td>
+                  <td>${el.name}</td>
+                  <td class="loc">
+                    ${el.location}
+                  </td>
+                  <td>${el.supervisor}</td>
+                  <td>${el.capacity}</td>
+                  <td>${el.biaya_sewa}</td>
+                  <td>${el.biaya_perawatan}</td>
+                  <td>
+                
+                    <a href="/editgudang" class="edit-btn">
+                      <img src="/edit.png" alt="edit" />
+                    </a>
+                    <button id="del-btn">
+                      <img src="/delete.png" alt="delete" />
+                    </button>
+                    </td>
+                </tr>
+            `;
+          });
+        });
+    </script>
   </body>
 </html>
