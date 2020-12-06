@@ -169,6 +169,7 @@ body {
 #del-btn img,
 .edit-btn img {
   width: 1.3rem;
+  pointer-events: none;
 }
 
 .big-box {

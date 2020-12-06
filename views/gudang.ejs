@@ -81,7 +81,7 @@
                     <a href="/editgudang" class="edit-btn">
                       <img src="/edit.png" alt="edit" />
                     </a>
-                    <button id="del-btn">
+                    <button id="del-btn" onclick="deleteValue(event)" value="${el.id}">
                       <img src="/delete.png" alt="delete" />
                     </button>
                     </td>
@@ -89,6 +89,15 @@
             `;
           });
         });
+
+      const deleteValue = (e) => {
+        fetch(`/gudang/${e.target.value}`, {
+          method: "DELETE",
+        }).then(async (res) => {
+          const response = await res.json();
+          console.log(response);
+        });
+      };
     </script>
   </body>
 </html>
