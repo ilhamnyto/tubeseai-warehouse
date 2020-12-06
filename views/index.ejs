@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Warehouse</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
       body {
@@ -25,6 +25,9 @@
       .link {
         font-weight: 400;
         font-size: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       a {
@@ -39,14 +42,21 @@
         font-size: 1.7rem;
         transition: all 0.2s ease-in-out;
       }
+
+      .app {
+        color: #fff;
+      }
+      .app:hover {
+        color: #000;
+      }
     </style>
   </head>
   <body>
     <h1>
       <div class="center-box">
         <div class="link">
-          <a href="/app/home">Go to App</a> |
           <a href="https://warehousetubeseai.docs.apiary.io/">Go to API Docs</a>
+          <a href="/app/home" class="app">Go to App</a>
         </div>
       </div>
     </h1>

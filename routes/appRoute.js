@@ -34,4 +34,17 @@ router.get("/addbarangkeluar", (req, res, next) => {
   res.render("./add/addbarangkeluar.ejs");
 });
 
+router.get("/editgudang/:id", (req, res, next) => {
+  res.render("./update/updategudang.ejs", { param: req.params.id });
+});
+router.get("/editbarang/:id", (req, res, next) => {
+  res.render("./update/updatebarang.ejs", { param: req.params.id });
+});
+router.get("/editbarangmasuk/:id", (req, res, next) => {
+  res.render("./update/updatebarangmasuk.ejs", { param: req.params.id });
+});
+router.get("/editbarangkeluar/:id", (req, res, next) => {
+  res.render("./update/updatebarangkeluar.ejs", { param: req.params.id });
+});
+
 module.exports = router;
