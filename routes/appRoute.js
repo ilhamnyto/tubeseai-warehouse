@@ -21,4 +21,17 @@ router.get("/barangkeluar", (req, res, next) => {
   res.render("barangkeluar");
 });
 
+router.get("/addgudang", (req, res, next) => {
+  res.render("./add/addgudang.ejs");
+});
+router.get("/addbarang", (req, res, next) => {
+  res.render("./add/addbarang.ejs");
+});
+router.get("/addbarangmasuk", (req, res, next) => {
+  res.render("./add/addbarangmasuk.ejs");
+});
+router.get("/addbarangkeluar", (req, res, next) => {
+  res.render("./add/addbarangkeluar.ejs");
+});
+
 module.exports = router;

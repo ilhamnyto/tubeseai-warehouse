@@ -15,6 +15,7 @@ historyKeluarRouter
     });
   })
   .post((req, res, next) => {
+    console.log(req.body);
     db.query(
       `INSERT INTO history_keluar (id, id_barang, jumlah, destination, date, gudang) VALUES ('${req.body.id}','${req.body.id_barang}','${req.body.jumlah}','${req.body.destination}', '${req.body.date}', '${req.body.gudang}')`,
       (err, result) => {
