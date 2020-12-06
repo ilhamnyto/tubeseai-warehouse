@@ -53,10 +53,18 @@
     </div>
 
     <script>
-      console.log("mantap");
+      document.querySelector(".tab-body").innerHTML = `
+                <tr>
+                  <td colspan="7" style="text-align: center">
+                    <img src="/loading.gif" alt="" />
+                  </td>
+                </tr>
+                `;
       fetch("/gudang")
         .then((res) => res.json())
         .then((res) => {
+          document.querySelector(".tab-body").innerHTML = ``;
+
           res.forEach((el) => {
             document.querySelector(".tab-body").innerHTML += `
                 <tr class="tab-row">
