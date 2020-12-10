@@ -75,13 +75,19 @@
                   </td>
                   <td>${el.supervisor}</td>
                   <td>${el.capacity}</td>
-                  <td>${el.biaya_sewa}</td>
-                  <td>${el.biaya_perawatan}</td>
+                  <td>Rp ${new Intl.NumberFormat("de-DE").format(
+                    el.biaya_sewa
+                  )}</td>
+                  <td>Rp ${new Intl.NumberFormat("de-DE").format(
+                    el.biaya_perawatan
+                  )}</td>
                   <td>
                     <a href="/app/editgudang/${el.id}" class="edit-btn">
                       <img src="/edit.png" alt="edit" />
                     </a>
-                    <button id="del-btn" onclick="deleteValue(event)" value="${el.id}">
+                    <button id="del-btn" onclick="deleteValue(event)" value="${
+                      el.id
+                    }">
                       <img src="/delete.png" alt="delete" />
                     </button>
                     </td>
