@@ -47,4 +47,13 @@ router.get("/editbarangkeluar/:id", (req, res, next) => {
   res.render("./update/updatebarangkeluar.ejs", { param: req.params.id });
 });
 
+router.get("/restock", (req, res, next) => {
+  res.render("./divisilain/restock");
+});
+router.get("/goods-receipt", (req, res, next) => {
+  res.render("./divisilain/goodreceipt");
+});
+router.get("/restock/:id", (req, res, next) => {
+  res.render("./divisilain/restockpage", { param: req.params.id });
+});
 module.exports = router;

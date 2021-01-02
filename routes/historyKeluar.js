@@ -15,15 +15,24 @@ historyKeluarRouter
     });
   })
   .post((req, res, next) => {
-    console.log(req.body);
     db.query(
-      `INSERT INTO history_keluar (id, id_barang, jumlah, destination, date, gudang) VALUES ('${req.body.id}','${req.body.id_barang}','${req.body.jumlah}','${req.body.destination}', '${req.body.date}', '${req.body.gudang}')`,
+      `UPDATE barang SET stock = stock - '${req.body.jumlah}' WHERE id = '${req.body.id_barang}'`,
       (err, result) => {
         if (err) {
           const error = new Error(err);
           next(error);
         } else {
-          res.json({ message: "history_keluar inserted sucessfully." });
+          db.query(
+            `INSERT INTO history_keluar (id, id_barang, jumlah, destination, date, gudang) VALUES ('${req.body.id}','${req.body.id_barang}','${req.body.jumlah}','${req.body.destination}', '${req.body.date}', '${req.body.gudang}')`,
+            (err, result) => {
+              if (err) {
+                const error = new Error(err);
+                next(error);
+              } else {
+                res.json({ message: "history_keluar inserted sucessfully." });
+              }
+            }
+          );
         }
       }
     );

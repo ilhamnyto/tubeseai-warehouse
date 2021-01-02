@@ -5,6 +5,12 @@ const path = require("path");
 
 const app = express();
 const port = process.env.PORT;
+const cors = require("cors");
+
+const corsOptions = {
+  origin: "https://pronabil.herokuapp.com",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 const db = require("./db");
 const barangRouter = require("./routes/barang");
@@ -18,6 +24,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(cors(corsOptions));
 
 app.use("/", indexRouter);
 app.use("/barang", barangRouter);

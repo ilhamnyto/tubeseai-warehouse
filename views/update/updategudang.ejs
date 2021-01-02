@@ -28,7 +28,13 @@
                 <div class="col">
                   <div class="form-group">
                     <label for="id">ID</label>
-                    <input type="text" name="id" id="id" class="form-control" />
+                    <input
+                      type="text"
+                      name="id"
+                      id="id"
+                      class="form-control"
+                      required
+                    />
                   </div>
                 </div>
                 <div class="col">
@@ -39,6 +45,7 @@
                       name="name"
                       id="name"
                       class="form-control"
+                      required
                     />
                   </div>
                 </div>
@@ -52,6 +59,7 @@
                       name="location"
                       id="location"
                       class="form-control"
+                      required
                     />
                   </div>
                 </div>
@@ -65,6 +73,7 @@
                       name="supervisor"
                       id="supervisor"
                       class="form-control"
+                      required
                     />
                   </div>
                 </div>
@@ -76,6 +85,7 @@
                       name="capacity"
                       id="capacity"
                       class="form-control"
+                      required
                     />
                   </div>
                 </div>
@@ -89,6 +99,7 @@
                       name="biaya_sewa"
                       id="biaya_sewa"
                       class="form-control"
+                      required
                     />
                   </div>
                 </div>
@@ -100,6 +111,7 @@
                       name="biaya_perawatan"
                       id="biaya_perawatan"
                       class="form-control"
+                      required
                     />
                   </div>
                 </div>
@@ -124,7 +136,7 @@
         document.getElementById("capacity").value = response[0].capacity;
         document.getElementById("biaya_sewa").value = response[0].biaya_sewa;
         document.getElementById("biaya_perawatan").value =
-        response[0].biaya_perawatan;
+          response[0].biaya_perawatan;
 
         document.getElementById("id").disabled = "disabled";
       });

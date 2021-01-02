@@ -16,6 +16,15 @@ historyMasukRouter
   })
   .post((req, res, next) => {
     db.query(
+      `UPDATE barang SET stock = stock + '${req.body.jumlah}' WHERE id = '${req.body.id_barang}'`,
+      (err, result) => {
+        if (err) {
+          const error = new Error(err);
+          next(error);
+        }
+      }
+    );
+    db.query(
       `INSERT INTO history_masuk (id, id_barang, jumlah, vendor, date, gudang) VALUES ('${req.body.id}','${req.body.id_barang}','${req.body.jumlah}','${req.body.vendor}', '${req.body.date}', '${req.body.gudang}')`,
       (err, result) => {
         if (err) {

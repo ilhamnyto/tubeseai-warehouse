@@ -20,17 +20,7 @@
         </div>
       </div>
       <div class="row mt-5">
-        <div class="col px-5 d-flex justify-content-end">
-          <a href="/app/restock" class="d-flex align-items-center ant-btn mr-3">
-            Restock
-          </a>
-          <a
-            href="/app/addbarang"
-            class="d-flex align-items-center add-btn mr-5"
-          >
-            Add barang
-          </a>
-        </div>
+        <div class="col px-5 d-flex justify-content-end"></div>
       </div>
       <div class="row">
         <div class="col">
@@ -42,7 +32,9 @@
                   <th>Name</th>
                   <th>Stock</th>
                   <th>Gudang</th>
-                  <th></th>
+                  <th>Status</th>
+                  <th>Quantity</th>
+                  <th>Date</th>
                 </tr>
               </thead>
               <tbody class="tab-body"></tbody>
@@ -60,9 +52,11 @@
                   </td>
                 </tr>
                 `;
-      fetch("/barang")
+
+      fetch("/barang/restock")
         .then((res) => res.json())
         .then((res) => {
+          console.log(res);
           document.querySelector(".tab-body").innerHTML = ``;
           res.forEach((el) => {
             document.querySelector(".tab-body").innerHTML += `
@@ -74,28 +68,25 @@
                   </td>
                   <td>${el.gudang}</td>
                   <td>
-                
-                    <a href="/app/editbarang/${el.id}" class="edit-btn">
-                      <img src="/edit.png" alt="edit" />
-                    </a>
-                    <button id="del-btn" onclick="deleteValue(event)" value="${el.id}">
-                      <img src="/delete.png" alt="delete" />
-                    </button>
-                    </td>
+                    ${
+                      el.status
+                        ? el.status
+                        : `
+                      <a href="/app/restock/${el.id}" class="edit-btn">
+                      Restock
+                    </a>`
+                    }
+                  </td>
+                  <td>
+                    ${el.jumlah ? el.jumlah : "-"}
+                  </td>
+                  <td>
+                    ${el.date ? el.date : "-"}
+                  </td>
                 </tr>
             `;
           });
         });
-
-      const deleteValue = (e) => {
-        fetch(`/barang/${e.target.value}`, {
-          method: "DELETE",
-        }).then(async (res) => {
-          const response = await res.json();
-          console.log(response);
-          location.reload();
-        });
-      };
     </script>
   </body>
 </html>

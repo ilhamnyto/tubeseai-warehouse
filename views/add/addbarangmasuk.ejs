@@ -28,7 +28,7 @@
                 <div class="col">
                   <div class="form-group">
                     <label for="id">ID</label>
-                    <input type="text" name="id" id="id" class="form-control" />
+                    <input type="text" name="id" id="id" class="form-control" required/>
                   </div>
                 </div>
                 <div class="col">
@@ -52,6 +52,7 @@
                       name="jumlah"
                       id="jumlah"
                       class="form-control"
+                      required
                     />
                   </div>
                 </div>
@@ -63,6 +64,7 @@
                     name="vendor"
                     id="vendor"
                     class="form-control"
+                    required
                   />
                   </div>
                 </div>
@@ -76,6 +78,7 @@
                       name="date"
                       id="date"
                       class="form-control"
+                      required
                     />
                   </div>
                 </div>
@@ -101,6 +104,39 @@
     </div>
 
     <script>
+      let trans_code = ""
+      let id_barang = ""
+
+      const sendgoodrecipt = (e) => {
+        fetch(`/barang/status/${trans_code}`, {
+          method: "DELETE",
+        })
+        fetch(
+          "https://cors-anywhere.herokuapp.com/" +
+            "https://pronabil.herokuapp.com/transactions/good-receipt",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              barang_id: id_barang,
+              transaction_code: trans_code
+            }),
+          }
+        ).then(async (res) => {
+          document.querySelector(
+            ".big-box"
+          ).innerHTML = `    <div class="loading">
+                            <img src="/loading.gif" alt="loading">
+                          </div>`;
+          const response = await res.json();
+          document.querySelector(".big-box").innerHTML = `<div class="message">
+                           <span class="my-2">${response.message}</span>
+                            </div>`;
+        });
+      }
+
       fetch("/gudang")
         .then((res) => res.json())
         .then((res) => {
@@ -110,13 +146,17 @@
             ).innerHTML += `<option value="${el.id}">${el.name}</option>`;
           });
         });
-      fetch("/barang")
+      fetch("/barang/restock")
         .then((res) => res.json())
         .then((res) => {
           res.forEach((el) => {
-            document.querySelector(
+            if(el.trans_code) {
+              document.querySelector(
               "#barang"
-            ).innerHTML += `<option value="${el.id}">${el.name}</option>`;
+              ).innerHTML += `<option value="${el.id}">${el.id}</option>`;
+              trans_code = el.trans_code
+              id_barang = el.id
+            }
           });
         });
 
@@ -142,7 +182,8 @@
                           </div>`;
           const response = await res.json();
           document.querySelector(".big-box").innerHTML = `<div class="message">
-                           <span>${response.message}</span>
+                           <span class="my-3">${response.message}</span>
+                            <button class="btn btn-sm btn-primary" onclick="sendgoodrecipt(event)">Send Good Receipt</button>
                             </div>`;
         });
       });

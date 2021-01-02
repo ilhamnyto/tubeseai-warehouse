@@ -37,14 +37,17 @@ barangRouter
 barangRouter
   .route("/restock")
   .get((req, res, next) => {
-    db.query(`SELECT * from barang WHERE stock < 100`, function (err, result) {
-      if (err) {
-        const error = new Error(err);
-        next(error);
-      } else {
-        res.json(result.rows);
+    db.query(
+      `SELECT barang.*, status.* FROM barang LEFT JOIN status ON barang.id=status.id_barang WHERE barang.stock < 100;`,
+      function (err, result) {
+        if (err) {
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json(result.rows);
+        }
       }
-    });
+    );
   })
   .post((req, res, next) => {
     res.status(405).json({ message: "POST method is not allowed." });
@@ -54,6 +57,65 @@ barangRouter
   })
   .delete((req, res, next) => {
     res.status(405).json({ message: "DELETE method is not allowed." });
+  });
+
+barangRouter
+  .route("/status")
+  .get((req, res, next) => {
+    db.query(`SELECT * from status`, function (err, result) {
+      if (err) {
+        const error = new Error(err);
+        next(error);
+      } else {
+        res.json(result.rows);
+      }
+    });
+  })
+  .post((req, res, next) => {
+    db.query(
+      `INSERT INTO status (trans_code, id_barang, status, jumlah) VALUES ('${req.body.trans_code}','${req.body.id_barang}','${req.body.status}', '${req.body.jumlah}')`,
+      (err, result) => {
+        if (err) {
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json({ message: "Transaction code saved successfully." });
+        }
+      }
+    );
+  })
+  .put((req, res, next) => {
+    res.status(405).json({ message: "PUT method is not allowed." });
+  })
+  .delete((req, res, next) => {
+    res.status(405).json({ message: "DELETE method is not allowed." });
+  });
+
+barangRouter
+  .route("/status/:id")
+  .get((req, res, next) => {
+    res.status(405).json({ message: "GET method is not allowed." });
+  })
+  .post((req, res, next) => {
+    res.status(405).json({ message: "POST method is not allowed." });
+  })
+  .put((req, res, next) => {
+    res.status(405).json({ message: "PUT method is not allowed." });
+  })
+  .delete((req, res, next) => {
+    db.query(
+      `DELETE FROM status WHERE trans_code = '${req.params.id}'`,
+      (err, result) => {
+        if (err) {
+          const error = new Error(err);
+          next(error);
+        } else {
+          res.json({
+            message: `barang with transaction code: ${req.params.id} has been deleted sucessfully.`,
+          });
+        }
+      }
+    );
   });
 
 barangRouter

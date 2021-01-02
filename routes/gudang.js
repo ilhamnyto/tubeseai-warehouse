@@ -17,7 +17,7 @@ gudangRouter
   .post((req, res, next) => {
     db.query(
       `INSERT INTO gudang (id, name, location, supervisor, capacity, biaya_sewa, biaya_perawatan) VALUES ('${req.body.id}','${req.body.name}','${req.body.location}','${req.body.supervisor}', '${req.body.capacity}', '${req.body.biaya_sewa}', '${req.body.biaya_perawatan}')`,
-      (err, result, next) => {
+      (err, result) => {
         if (err) {
           const error = new Error(err);
           next(error);
